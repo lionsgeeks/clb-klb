@@ -25,8 +25,8 @@ export default function HeroSection() {
                         EN SAVOIR PLUS
                     </Link>
                     <Link
-                        href="#"
-                        className="rounded-lg bg-cl-black border border-cl-white px-6 py-3 text-sm font-medium text-cl-white transition hover:bg-cl-white/10"
+                        href="/a-propos"
+                        className="rounded-lg border border-cl-white bg-cl-black px-6 py-3 text-sm font-medium text-cl-white transition hover:bg-cl-white/10"
                     >
                         ADHERER AU CLUB
                     </Link>

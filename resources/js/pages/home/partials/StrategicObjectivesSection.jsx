@@ -4,7 +4,7 @@ const objectives = [
     {
         iconKey: 'promote',
         title: 'PROMOUVOIR LES ÉTUDES',
-        description: 'Mettre en valeur les parcours et les diplômes de l\'enseignement belge au Maroc.',
+        description: "Mettre en valeur les parcours et les diplômes de l'enseignement belge au Maroc.",
     },
     {
         iconKey: 'federate',
@@ -14,7 +14,7 @@ const objectives = [
     {
         iconKey: 'network',
         title: 'DÉVELOPPER UN RÉSEAU',
-        description: 'Offrir des opportunités de networking et d\'échanges entre membres.',
+        description: "Offrir des opportunités de networking et d'échanges entre membres.",
     },
     {
         iconKey: 'accompany',
@@ -24,7 +24,7 @@ const objectives = [
     {
         iconKey: 'contribute',
         title: 'CONTRIBUER',
-        description: 'Contribuer au rayonnement de l\'enseignement belge et au dialogue des cultures.',
+        description: "Contribuer au rayonnement de l'enseignement belge et au dialogue des cultures.",
     },
     {
         iconKey: 'build',

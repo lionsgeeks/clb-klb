@@ -1,33 +1,42 @@
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 
 const navLinks = [
     { label: 'ACCUEIL', href: '/' },
-    { label: 'A PROPOS', href: '#' },
-    { label: 'ACTUALITES', href: '#' },
-    { label: 'QUI SOMMES-NOUS', href: '#' },
+    { label: 'À PROPOS', href: '/a-propos' },
+    { label: 'ACTUALITÉS', href: '#', hasDropdown: true },
     { label: 'CONTACT', href: '#' },
 ];
 
 export default function Navbar() {
+    const { url } = usePage();
+    const isAboutActive = url.startsWith('/a-propos');
+
     return (
-        <header className="fixed left-0 right-0 top-0 z-50 bg-cl-black/80 backdrop-blur-sm">
+        <header className="fixed left-0 right-0 top-0 z-50 bg-cl-black">
             <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 lg:h-20 lg:px-8">
                 <Link href="/" className="flex items-center gap-2">
                     <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded bg-alpha text-cl-white">
-                        <span className="text-sm font-bold">CLB</span>
+                        <span className="text-xs font-bold">CLB KLP</span>
                     </div>
-                    <span className="text-lg font-semibold text-cl-white">CLB</span>
+                    <span className="text-lg font-semibold text-cl-white">CLB KLP</span>
                 </Link>
 
                 <ul className="hidden items-center gap-8 md:flex">
-                    {navLinks.map(({ label, href }) => (
-                        <li key={label}>
+                    {navLinks.map(({ label, href, hasDropdown }) => (
+                        <li key={label} className="flex items-center gap-1">
                             <Link
                                 href={href}
-                                className="text-sm font-medium text-cl-white transition hover:opacity-90"
+                                className={`text-sm font-medium text-cl-white transition hover:opacity-90 ${
+                                    label === 'À PROPOS' && isAboutActive ? 'underline underline-offset-4' : ''
+                                }`}
                             >
                                 {label}
                             </Link>
+                            {hasDropdown && (
+                                <svg className="h-4 w-4 text-cl-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                </svg>
+                            )}
                         </li>
                     ))}
                 </ul>
@@ -35,27 +44,19 @@ export default function Navbar() {
                 <div className="flex items-center gap-4">
                     <button
                         type="button"
-                        className="text-cl-white transition hover:opacity-90"
-                        aria-label="Rechercher"
-                    >
-                        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                    </button>
-                    <button
-                        type="button"
-                        className="text-cl-white transition hover:opacity-90"
+                        className="flex items-center gap-1 text-sm font-medium text-cl-white transition hover:opacity-90"
                         aria-label="Langue"
                     >
-                        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0h.5a2.5 2.5 0 002.5-2.5V8m0 0V3.935M12 21a9 9 0 100-18 9 9 0 000 18z" />
+                        FR
+                        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
                     <Link
                         href="#"
-                        className="rounded-lg bg-alpha px-4 py-2 text-sm font-medium text-cl-white transition hover:opacity-95"
+                        className="rounded-lg bg-alpha px-4 py-2 text-sm font-medium uppercase text-cl-white transition hover:opacity-95"
                     >
-                        REJOIGNEZ NOUS
+                        DEVENIR MEMBRE
                     </Link>
                 </div>
             </nav>

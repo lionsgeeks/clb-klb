@@ -3,7 +3,7 @@ import { FeaturedEventCard, SmallEventCard } from './EventCard';
 
 const featuredEvent = {
     title: 'Leadership féminin — Réalités et défis',
-    subtitle: 'F\'tor-débat',
+    subtitle: "F'tor-débat",
     moderator: 'Modéré par Ihsane Benbel, avec Dr Younes Sekkouri',
     date: '09 MARS',
     timeRange: 'Vendredi, 09 mars 2026 18:00 à 21:00',

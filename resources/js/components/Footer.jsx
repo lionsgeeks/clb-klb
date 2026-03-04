@@ -29,38 +29,35 @@ export default function Footer() {
                     <div className="max-w-md">
                         <Link href="/" className="mb-4 inline-flex items-center gap-2">
                             <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded bg-alpha">
-                                <span className="text-xs font-bold text-cl-white">CLB</span>
+                                <span className="text-xs font-bold text-cl-white">CLB KLP</span>
                             </div>
-                            <span className="font-semibold text-cl-white">CLB</span>
+                            <span className="font-semibold text-cl-white">CLB KLP</span>
                         </Link>
                         <p className="text-sm text-cl-white/90">
                             Le cercle des lauréats de Belgique, association à but non lucratif régie par la loi du 1er juillet 1901.
                         </p>
                     </div>
-                    <div className="flex flex-col items-start gap-4">
-                        <div className="flex gap-4">
-                            {socialLinks.map(({ name, href }) => (
-                                <a
-                                    key={name}
-                                    href={href}
-                                    className="text-cl-white transition hover:opacity-80"
-                                    aria-label={name}
-                                >
-                                    <SocialIcon name={name} />
-                                </a>
-                            ))}
-                        </div>
-                        <div className="text-sm text-cl-white/90">
-                            <p>+212 6 61 74 61 74</p>
-                            <a href="mailto:contact@clb.ma" className="hover:underline">contact@clb.ma</a>
-                        </div>
+                    <div className="flex gap-4">
+                        {socialLinks.map(({ name, href }) => (
+                            <a
+                                key={name}
+                                href={href}
+                                className="text-cl-white transition hover:opacity-80"
+                                aria-label={name}
+                            >
+                                <SocialIcon name={name} />
+                            </a>
+                        ))}
                     </div>
                 </div>
             </div>
             <div className="border-t border-white/10">
                 <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-4 text-sm text-cl-white/80 sm:flex-row lg:px-8">
-                    <span>2024 @ CLB. Tous droits réservés.</span>
-                    <Link href="#" className="hover:underline">Mentions Légales</Link>
+                    <span>© 2023 CLB KLP. Tous droits réservés.</span>
+                    <div className="flex items-center gap-4">
+                        <span>Téléphone: +212 662 50 1470</span>
+                        <a href="mailto:contact@clbklp.ma" className="hover:underline">contact@clbklp.ma</a>
+                    </div>
                 </div>
             </div>
         </footer>

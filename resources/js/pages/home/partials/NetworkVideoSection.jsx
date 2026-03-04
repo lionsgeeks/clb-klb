@@ -4,7 +4,7 @@ import { useState } from 'react';
 const slides = [
     {
         title: 'Un réseau au service des lauréats de Belgique',
-        body: 'Plongez au cœur de notre communauté d\'anciens élèves et bienfaiteurs. Les CLB-KLB, l\'association fédératrice qui vous ouvre les bras sur le Maroc.',
+        body: "Plongez au cœur de notre communauté d'anciens élèves et bienfaiteurs. Les CLB-KLB, l'association fédératrice qui vous ouvre les bras sur le Maroc.",
         cta: 'EN SAVOIR PLUS',
         ctaHref: '#',
     },
@@ -83,7 +83,7 @@ export default function NetworkVideoSection() {
                             className="absolute inset-0 h-full w-full object-cover opacity-80"
                         />
                         <span className="relative z-10 flex h-16 w-16 items-center justify-center rounded-full bg-alpha/90 text-cl-white transition hover:bg-alpha">
-                            <svg className="h-8 w-8 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                            <svg className="ml-1 h-8 w-8" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M8 5v14l11-7z" />
                             </svg>
                         </span>
