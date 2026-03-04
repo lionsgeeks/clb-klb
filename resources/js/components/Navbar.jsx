@@ -1,4 +1,5 @@
-import { Link, usePage } from '@inertiajs/react';
+import { Link, usePage, router } from '@inertiajs/react';
+import { useState, useRef, useEffect } from 'react';
 
 const navLinks = [
     { label: 'ACCUEIL', href: '/' },
@@ -7,7 +8,31 @@ const navLinks = [
     { label: 'CONTACT', href: '/contact' },
 ];
 
+const LOCALES = [
+    { code: 'fr', label: 'FR' },
+    { code: 'ar', label: 'العربية' },
+    { code: 'nl', label: 'NL' },
+];
+
 export default function Navbar() {
+    const { props } = usePage();
+    const locale = props.locale && ['fr', 'ar', 'nl'].includes(props.locale) ? props.locale : 'fr';
+    const [open, setOpen] = useState(false);
+    const ref = useRef(null);
+
+    useEffect(() => {
+        function handleClickOutside(e) {
+            if (ref.current && !ref.current.contains(e.target)) setOpen(false);
+        }
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
+    function setLocale(code) {
+        if (code === locale) return;
+        router.post('/locale', { locale: code }, { preserveScroll: true });
+        setOpen(false);
+    }
 
     return (
         <header className="fixed left-0 right-0 top-0 z-50 bg-cl-white">
@@ -40,17 +65,36 @@ export default function Navbar() {
                     })}
                 </ul>
 
-                <div className="flex items-center gap-4">
-                    <button
-                        type="button"
-                        className="flex items-center gap-1 text-sm font-medium text-cl-black transition hover:opacity-90"
-                        aria-label="Langue"
-                    >
-                        FR
-                        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                        </svg>
-                    </button>
+                <div className="flex items-center gap-4" ref={ref}>
+                    <div className="relative">
+                        <button
+                            type="button"
+                            onClick={() => setOpen((v) => !v)}
+                            className="flex items-center gap-1 text-sm font-medium text-cl-black transition hover:opacity-90"
+                            aria-label="Langue"
+                            aria-expanded={open}
+                        >
+                            {LOCALES.find((l) => l.code === locale)?.label ?? 'FR'}
+                            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        {open && (
+                            <ul className="absolute right-0 top-full z-50 mt-1 min-w-32 rounded-lg border border-border bg-card py-1 shadow-md">
+                                {LOCALES.map((l) => (
+                                    <li key={l.code}>
+                                        <button
+                                            type="button"
+                                            onClick={() => setLocale(l.code)}
+                                            className={`block w-full px-4 py-2 text-left text-sm transition hover:bg-muted ${l.code === locale ? 'font-medium text-foreground' : 'text-muted-foreground'}`}
+                                        >
+                                            {l.label}
+                                        </button>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
                     <Link
                         href="#"
                         className="rounded-lg bg-alpha px-4 py-2 text-sm font-medium uppercase text-cl-white transition hover:opacity-95"

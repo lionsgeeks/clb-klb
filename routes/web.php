@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\LocaleController;
 use Illuminate\Support\Facades\Route;
-use Laravel\Fortify\Features;
 use Inertia\Inertia;
+
+Route::post('/locale', [LocaleController::class, 'store'])->name('locale.store');
 
 Route::get('/', function () {
     return Inertia::render('home/index');
