@@ -8,7 +8,7 @@ import ActivitiesSection from './Partials/ActivitiesSection';
 import TeamSection from './Partials/TeamSection';
 import PartnersSection from './Partials/PartnersSection';
 
-function AboutIndex() {
+function AboutIndex({ teamMembers = [], partners = [] }) {
     return (
         <>
             <AppLayout>
@@ -20,8 +20,8 @@ function AboutIndex() {
                 <WhoWeAreSection />
                 <VisionSection />
                 <ActivitiesSection />
-                <TeamSection />
-                <PartnersSection />
+                <TeamSection teamMembers={teamMembers} />
+                <PartnersSection partners={partners} />
             </AppLayout>
         </>
     );

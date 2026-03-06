@@ -3,17 +3,35 @@
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\ParticipantController;
+use App\Http\Controllers\PartnerController;
+use App\Http\Controllers\TeamMemberController;
+use App\Models\Partner;
+use App\Models\TeamMember;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::post('/locale', [LocaleController::class, 'store']);
 
 Route::get('/', function () {
-    return Inertia::render('user/home/index');
+    $teamMembers = TeamMember::orderBy('sort_order')->orderBy('id')->get()
+        ->map(fn ($m) => ['id' => $m->id, 'name' => $m->name, 'imageUrl' => $m->image_path, 'show_social' => $m->show_social]);
+    $partners = Partner::orderBy('sort_order')->orderBy('id')->get()
+        ->map(fn ($p) => ['id' => $p->id, 'name' => $p->name, 'logoUrl' => $p->logo_path, 'link' => $p->link]);
+    return Inertia::render('user/home/index', [
+        'teamMembers' => $teamMembers,
+        'partners' => $partners,
+    ]);
 })->name('home');
 
 Route::get('/a-propos', function () {
-    return Inertia::render('user/about/index');
+    $teamMembers = TeamMember::orderBy('sort_order')->orderBy('id')->get()
+        ->map(fn ($m) => ['id' => $m->id, 'name' => $m->name, 'imageUrl' => $m->image_path, 'show_social' => $m->show_social]);
+    $partners = Partner::orderBy('sort_order')->orderBy('id')->get()
+        ->map(fn ($p) => ['id' => $p->id, 'name' => $p->name, 'logoUrl' => $p->logo_path, 'link' => $p->link]);
+    return Inertia::render('user/about/index', [
+        'teamMembers' => $teamMembers,
+        'partners' => $partners,
+    ]);
 })->name('about');
 
 // Admin routes (use app-sidebar layout via AppLayout)
@@ -34,6 +52,24 @@ Route::group(['middleware' => ['auth', 'role:admin', 'verified']], function () {
     Route::prefix('admin/participants')->group(function () {
         Route::get('/', [ParticipantController::class, 'adminIndex'])->name('admin.participants.index');
         Route::delete('/{participant}', [ParticipantController::class, 'destroy'])->name('admin.participants.destroy');
+    });
+
+    Route::prefix('admin/team')->group(function () {
+        Route::get('/', [TeamMemberController::class, 'index'])->name('admin.team.index');
+        Route::get('/create', [TeamMemberController::class, 'create'])->name('admin.team.create');
+        Route::post('/', [TeamMemberController::class, 'store'])->name('admin.team.store');
+        Route::get('/{teamMember}/edit', [TeamMemberController::class, 'edit'])->name('admin.team.edit');
+        Route::put('/{teamMember}', [TeamMemberController::class, 'update'])->name('admin.team.update');
+        Route::delete('/{teamMember}', [TeamMemberController::class, 'destroy'])->name('admin.team.destroy');
+    });
+
+    Route::prefix('admin/partners')->group(function () {
+        Route::get('/', [PartnerController::class, 'index'])->name('admin.partners.index');
+        Route::get('/create', [PartnerController::class, 'create'])->name('admin.partners.create');
+        Route::post('/', [PartnerController::class, 'store'])->name('admin.partners.store');
+        Route::get('/{partner}/edit', [PartnerController::class, 'edit'])->name('admin.partners.edit');
+        Route::put('/{partner}', [PartnerController::class, 'update'])->name('admin.partners.update');
+        Route::delete('/{partner}', [PartnerController::class, 'destroy'])->name('admin.partners.destroy');
     });
 });
 

@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { BookOpen, CalendarDays, FolderGit2, LayoutGrid, Users } from 'lucide-react';
+import { BookOpen, CalendarDays, FolderGit2, Handshake, LayoutGrid, UserCircle, Users } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
@@ -30,10 +30,19 @@ const mainNavItems: NavItem[] = [
         title: 'Participants',
         href: '/admin/participants',
         icon: Users,
-       
     },
     {
-        title: 'blogs',
+        title: 'Team',
+        href: '/admin/team',
+        icon: UserCircle,
+    },
+    {
+        title: 'Partners',
+        href: '/admin/partners',
+        icon: Handshake,
+    },
+    {
+        title: 'Blogs',
         href: '/admin/blogs',
         icon: BookOpen,
     },

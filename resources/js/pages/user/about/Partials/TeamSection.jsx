@@ -20,19 +20,13 @@ function SocialIcon({ name }) {
     );
 }
 
-const team = [
-    { name: 'Abdessamad Ben Moumen', imageUrl: '/images/team/Abdessamad-Ben-Moumen.jpg', showSocial: false },
-    { name: 'Chiraz', imageUrl: '/images/team/Chiraz-Delegation-Wallonie-Bruxelles.jpg', showSocial: false },
-    { name: 'Driss El Yazami', imageUrl: '/images/team/Driss-ElYazami.jpg', showSocial: false },
-    { name: 'François De Vrije', imageUrl: '/images/team/François-DeVrije-Hub-Brussels.jpg', showSocial: false },
-    { name: 'Gilles Heyvaert', imageUrl: '/images/team/Gilles-Heyvaert-Ambassadeur.jpg', showSocial: false },
-    { name: 'Merouane Touali', imageUrl: '/images/team/Merouane-Touali.jpg', showSocial: true },
-    { name: 'Mohamed Rhachi', imageUrl: '/images/team/Mohamed-Rhachi-Universite-Mohammed-V.jpg', showSocial: false },
-    { name: 'Nadia Sentissi', imageUrl: '/images/team/Nadia-Sentissi.jpg', showSocial: false },
-    { name: 'Sarah Bentefrit', imageUrl: '/images/team/Sarah-Bentefrit.jpg', showSocial: false },
-];
-
-export default function TeamSection() {
+export default function TeamSection({ teamMembers = [] }) {
+    const team = teamMembers.map((m) => ({
+        name: m.name,
+        imageUrl: m.imageUrl || m.image_path,
+        showSocial: m.show_social ?? false,
+    }));
+    if (team.length === 0) return null;
     return (
         <section className="border-b border-border bg-background py-16 lg:py-24">
             <div className="mx-auto max-w-7xl px-4 lg:px-8">
@@ -43,8 +37,8 @@ export default function TeamSection() {
                     <TransText fr="Notre Équipe" ar="فريقنا" nl="Ons team" as="span" />
                 </h2>
                 <div className="mt-12 flex flex-wrap items-start justify-center gap-8 lg:gap-10">
-                    {team.map((member, i) => (
-                        <div key={i} className="flex flex-col items-center text-center">
+                    {team.map((member) => (
+                        <div key={member.name} className="flex flex-col items-center text-center">
                             <div className="relative h-40 w-40 overflow-hidden rounded-lg border border-border bg-muted shadow-sm sm:h-44 sm:w-44">
                                 <img
                                     src={member.imageUrl}

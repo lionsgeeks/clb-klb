@@ -1,18 +1,8 @@
 import TransText from '@/components/TransText';
 
-const team = [
-    { name: 'Abdessamad Ben Moumen', imageUrl: '/images/team/Abdessamad-Ben-Moumen.jpg' },
-    { name: 'Chiraz', imageUrl: '/images/team/Chiraz-Delegation-Wallonie-Bruxelles.jpg' },
-    { name: 'Driss El Yazami', imageUrl: '/images/team/Driss-ElYazami.jpg' },
-    { name: 'François De Vrije', imageUrl: '/images/team/François-DeVrije-Hub-Brussels.jpg' },
-    { name: 'Gilles Heyvaert', imageUrl: '/images/team/Gilles-Heyvaert-Ambassadeur.jpg' },
-    { name: 'Merouane Touali', imageUrl: '/images/team/Merouane-Touali.jpg' },
-    { name: 'Mohamed Rhachi', imageUrl: '/images/team/Mohamed-Rhachi-Universite-Mohammed-V.jpg' },
-    { name: 'Nadia Sentissi', imageUrl: '/images/team/Nadia-Sentissi.jpg' },
-    { name: 'Sarah Bentefrit', imageUrl: '/images/team/Sarah-Bentefrit.jpg' },
-];
-
-export default function TeamSection() {
+export default function TeamSection({ teamMembers = [] }) {
+    const team = teamMembers.map((m) => ({ name: m.name, imageUrl: m.imageUrl || m.image_path }));
+    if (team.length === 0) return null;
     return (
         <section className="border-b border-border bg-background py-16 lg:py-24">
             <div className="mx-auto max-w-7xl px-4 lg:px-8">
@@ -23,8 +13,8 @@ export default function TeamSection() {
                     <TransText fr="Notre Équipe" ar="فريقنا" nl="Ons team" as="span" />
                 </h2>
                 <div className="mt-12 flex flex-wrap items-center justify-center gap-8 lg:gap-12">
-                    {team.map((member, i) => (
-                        <div key={i} className="flex flex-col items-center text-center">
+                    {team.map((member) => (
+                        <div key={member.name} className="flex flex-col items-center text-center">
                             <div className="h-28 w-28 overflow-hidden rounded-full border-2 border-border bg-muted sm:h-32 sm:w-32">
                                 <img
                                     src={member.imageUrl}
