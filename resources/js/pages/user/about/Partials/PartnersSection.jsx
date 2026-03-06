@@ -11,11 +11,21 @@ export default function PartnersSection() {
     return (
         <section className="border-b border-border bg-background py-16 lg:py-24">
             <div className="mx-auto max-w-7xl px-4 lg:px-8">
-                <p className="text-center text-sm font-medium uppercase tracking-wider text-alpha">
-                    <TransText fr="OCÉAN DES MARQUES" ar="بحر العلامات" nl="OCEAN VAN MERKEN" as="span" />
+                <p className="text-center text-sm font-medium tracking-wider text-alpha uppercase">
+                    <TransText
+                        fr="OCÉAN DES MARQUES"
+                        ar="بحر العلامات"
+                        nl="OCEAN VAN MERKEN"
+                        as="span"
+                    />
                 </p>
                 <h2 className="mt-2 text-center text-3xl font-bold text-foreground lg:text-4xl">
-                    <TransText fr="Nos Partenaires" ar="شركاؤنا" nl="Onze partners" as="span" />
+                    <TransText
+                        fr="Nos Partenaires"
+                        ar="شركاؤنا"
+                        nl="Onze partners"
+                        as="span"
+                    />
                 </h2>
                 <div className="mt-12 flex flex-wrap items-center justify-center gap-12 grayscale">
                     {partners.map((partner, i) => (

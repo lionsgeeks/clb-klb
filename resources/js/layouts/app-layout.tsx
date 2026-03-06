@@ -5,7 +5,11 @@ import SetDocumentDirection from '@/components/SetDocumentDirection';
 import AppLayoutTemplate from '@/layouts/app/app-sidebar-layout';
 import type { AppLayoutProps } from '@/types';
 
-export default function AppLayout({ children, breadcrumbs, ...props }: AppLayoutProps) {
+export default function AppLayout({
+    children,
+    breadcrumbs,
+    ...props
+}: AppLayoutProps) {
     const { auth } = usePage().props as { auth?: { user?: { role?: string } } };
     const isAdmin = auth?.user?.role === 'admin';
 

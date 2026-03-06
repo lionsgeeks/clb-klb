@@ -20,7 +20,11 @@ export default function BlogDetail({ blog }) {
                 href="/blogs"
                 className="inline-flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-alpha"
             >
-                <TransText fr="← Retour au blog" ar="← العودة إلى المدونة" nl="← Terug naar blog" />
+                <TransText
+                    fr="← Retour au blog"
+                    ar="← العودة إلى المدونة"
+                    nl="← Terug naar blog"
+                />
             </Link>
             <div className="mt-6">
                 {published_at && (
@@ -34,12 +38,14 @@ export default function BlogDetail({ blog }) {
             </div>
             {image_url && (
                 <div className="relative mt-6 aspect-video w-full overflow-hidden rounded-lg bg-muted">
-                    <img src={image_url} alt="" className="h-full w-full object-cover" />
+                    <img
+                        src={image_url}
+                        alt=""
+                        className="h-full w-full object-cover"
+                    />
                 </div>
             )}
-            {excerpt && (
-                <p className="mt-6 text-muted-foreground">{excerpt}</p>
-            )}
+            {excerpt && <p className="mt-6 text-muted-foreground">{excerpt}</p>}
             {body && (
                 <div
                     className="prose prose-foreground mt-6 max-w-none"

@@ -10,7 +10,11 @@ const DEFAULT_BACKGROUND_IMAGE =
  * @param {React.ReactNode} title - Main heading
  * @param {string} [backgroundImage] - Optional image URL (defaults to shared stock image)
  */
-export default function PageHero({ subtitle, title, backgroundImage = DEFAULT_BACKGROUND_IMAGE }) {
+export default function PageHero({
+    subtitle,
+    title,
+    backgroundImage = DEFAULT_BACKGROUND_IMAGE,
+}) {
     return (
         <section className="relative flex min-h-[50vh] items-center justify-center bg-cl-black px-4 pt-24 pb-16">
             <div
@@ -20,12 +24,12 @@ export default function PageHero({ subtitle, title, backgroundImage = DEFAULT_BA
             <div className="absolute inset-0 bg-cl-black/70" />
             <div className="relative z-10 mx-auto max-w-4xl text-center">
                 {subtitle && (
-                    <p className="text-sm font-medium uppercase tracking-wider text-cl-white/80">
+                    <p className="text-sm font-medium tracking-wider text-cl-white/80 uppercase">
                         {subtitle}
                     </p>
                 )}
                 <h1
-                    className={`text-4xl font-bold uppercase tracking-tight text-cl-white sm:text-5xl lg:text-6xl ${subtitle ? 'mt-3' : ''}`}
+                    className={`text-4xl font-bold tracking-tight text-cl-white uppercase sm:text-5xl lg:text-6xl ${subtitle ? 'mt-3' : ''}`}
                 >
                     {title}
                 </h1>

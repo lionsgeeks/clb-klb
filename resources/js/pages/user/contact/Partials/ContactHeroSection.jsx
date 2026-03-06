@@ -5,21 +5,33 @@ const contactCards = [
     {
         icon: Phone,
         title: { fr: 'TÉLÉPHONE', ar: 'الهاتف', nl: 'TELEFOON' },
-        subtitle: { fr: 'Du lundi au vendredi de 9h à 18h.', ar: 'من الاثنين إلى الجمعة من 9 صباحاً حتى 6 مساءً.', nl: 'Maandag tot vrijdag van 9u tot 18u.' },
+        subtitle: {
+            fr: 'Du lundi au vendredi de 9h à 18h.',
+            ar: 'من الاثنين إلى الجمعة من 9 صباحاً حتى 6 مساءً.',
+            nl: 'Maandag tot vrijdag van 9u tot 18u.',
+        },
         value: '+212 6 66 17 47 12',
         type: 'phone',
     },
     {
         icon: MapPin,
         title: { fr: 'ADRESSE', ar: 'العنوان', nl: 'ADRES' },
-        subtitle: { fr: 'Venez nous rencontrer.', ar: 'تعالوا لزيارتنا.', nl: 'Kom ons ontmoeten.' },
+        subtitle: {
+            fr: 'Venez nous rencontrer.',
+            ar: 'تعالوا لزيارتنا.',
+            nl: 'Kom ons ontmoeten.',
+        },
         value: '4, Rue Jaâfar Assadik - Agdal, Rabat - Maroc',
         type: 'address',
     },
     {
         icon: Mail,
         title: { fr: 'E-MAIL', ar: 'البريد الإلكتروني', nl: 'E-MAIL' },
-        subtitle: { fr: 'Notre équipe vous répondra rapidement.', ar: 'سيرد فريقنا بسرعة.', nl: 'Ons team antwoordt u snel.' },
+        subtitle: {
+            fr: 'Notre équipe vous répondra rapidement.',
+            ar: 'سيرد فريقنا بسرعة.',
+            nl: 'Ons team antwoordt u snel.',
+        },
         value: 'contact@clb-klb.com',
         type: 'email',
     },
@@ -46,35 +58,53 @@ export default function ContactHeroSection() {
                     />
                 </p>
                 <div className="mt-10 grid gap-6 sm:grid-cols-3">
-                    {contactCards.map(({ icon: Icon, title, subtitle, value, type }) => (
-                        <div
-                            key={type}
-                            className="rounded-xl border border-border bg-card p-6 shadow-sm"
-                        >
-                            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-alpha text-cl-white">
-                                <Icon className="h-5 w-5" aria-hidden />
+                    {contactCards.map(
+                        ({ icon: Icon, title, subtitle, value, type }) => (
+                            <div
+                                key={type}
+                                className="rounded-xl border border-border bg-card p-6 shadow-sm"
+                            >
+                                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-alpha text-cl-white">
+                                    <Icon className="h-5 w-5" aria-hidden />
+                                </div>
+                                <p className="mt-4 text-xs font-semibold tracking-wider text-foreground uppercase">
+                                    <TransText
+                                        fr={title.fr}
+                                        ar={title.ar}
+                                        nl={title.nl}
+                                        as="span"
+                                    />
+                                </p>
+                                <p className="mt-1 text-sm text-muted-foreground">
+                                    <TransText
+                                        fr={subtitle.fr}
+                                        ar={subtitle.ar}
+                                        nl={subtitle.nl}
+                                        as="span"
+                                    />
+                                </p>
+                                <p className="mt-2 font-semibold text-foreground">
+                                    {type === 'email' ? (
+                                        <a
+                                            href={`mailto:${value}`}
+                                            className="hover:underline"
+                                        >
+                                            {value}
+                                        </a>
+                                    ) : type === 'phone' ? (
+                                        <a
+                                            href={`tel:${value.replace(/\s/g, '')}`}
+                                            className="hover:underline"
+                                        >
+                                            {value}
+                                        </a>
+                                    ) : (
+                                        value
+                                    )}
+                                </p>
                             </div>
-                            <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-foreground">
-                                <TransText fr={title.fr} ar={title.ar} nl={title.nl} as="span" />
-                            </p>
-                            <p className="mt-1 text-sm text-muted-foreground">
-                                <TransText fr={subtitle.fr} ar={subtitle.ar} nl={subtitle.nl} as="span" />
-                            </p>
-                            <p className="mt-2 font-semibold text-foreground">
-                                {type === 'email' ? (
-                                    <a href={`mailto:${value}`} className="hover:underline">
-                                        {value}
-                                    </a>
-                                ) : type === 'phone' ? (
-                                    <a href={`tel:${value.replace(/\s/g, '')}`} className="hover:underline">
-                                        {value}
-                                    </a>
-                                ) : (
-                                    value
-                                )}
-                            </p>
-                        </div>
-                    ))}
+                        ),
+                    )}
                 </div>
             </div>
         </section>

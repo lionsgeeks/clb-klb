@@ -23,7 +23,7 @@ export default function BlogCard({ blog }) {
             </div>
             <div className="flex flex-1 flex-col p-4 sm:p-5">
                 {published_at && (
-                    <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground sm:text-sm">
+                    <p className="text-xs font-medium tracking-wide text-muted-foreground uppercase sm:text-sm">
                         {published_at}
                     </p>
                 )}
@@ -37,7 +37,11 @@ export default function BlogCard({ blog }) {
                     href={url}
                     className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-foreground hover:text-alpha"
                 >
-                    <TransText fr="LIRE L'ARTICLE" ar="اقرأ المقال" nl="LEES HET ARTIKEL" />
+                    <TransText
+                        fr="LIRE L'ARTICLE"
+                        ar="اقرأ المقال"
+                        nl="LEES HET ARTIKEL"
+                    />
                     <svg
                         className="h-4 w-4 text-alpha"
                         fill="none"
