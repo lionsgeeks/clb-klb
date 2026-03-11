@@ -12,32 +12,24 @@ export default function BlogDetail({ blog }) {
         return null;
     }
 
-    const { title, excerpt, body, image_url, published_at } = blog;
+    console.log('BlogDetail blog:', blog);
+
+    const { title, excerpt, body, image_url, published_at } = {...blog, "excerpt": "hell oworld "};
 
     return (
-        <article className="mx-auto max-w-3xl px-4 py-10 sm:py-14">
-            <Link
-                href="/blogs"
-                className="inline-flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-alpha"
-            >
-                <TransText
-                    fr="← Retour au blog"
-                    ar="← العودة إلى المدونة"
-                    nl="← Terug naar blog"
-                />
-            </Link>
-            <div className="mt-6">
+        <article className="container text-center min-h-[calc(100vh-237px)] py-10 sm:py-14">
+            <div className="">
                 {published_at && (
-                    <p className="mt-3 text-sm text-muted-foreground">
+                    <p className="mb-3 text-sm text-muted-foreground">
                         {published_at}
                     </p>
                 )}
-                <h1 className="mt-2 text-3xl font-bold text-foreground sm:text-4xl">
+                <h1 className="text-3xl font-bold text-foreground sm:text-4xl">
                     {title}
                 </h1>
             </div>
             {image_url && (
-                <div className="relative mt-6 aspect-video w-full overflow-hidden rounded-lg bg-muted">
+                <div className="relative mt-6 aspect-16/7 w-full overflow-hidden rounded-lg bg-muted">
                     <img
                         src={image_url}
                         alt=""

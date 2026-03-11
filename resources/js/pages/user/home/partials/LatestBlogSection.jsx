@@ -6,12 +6,12 @@ import BlogCard from '../../blog/partials/BlogCard';
  * Shows latest blog posts when latestBlogs prop is provided; otherwise a single CTA to the blog.
  * @param {{ latestBlogs?: Array<{ id: number, title: string, excerpt: string, image_url: string|null, published_at: string, url: string }> }} props
  */
-export default function LatestBlogSection({ latestBlogs = [] }) {
+export function LatestBlogSection({ latestBlogs = [] }) {
     const hasBlogs = Array.isArray(latestBlogs) && latestBlogs.length > 0;
 
     return (
         <section className="border-b border-border bg-background py-16 lg:py-24">
-            <div className="mx-auto max-w-7xl px-4 lg:px-8">
+            <div className="container">
                 <SectionHeader
                     label={{
                         ar: 'الأخبار',
@@ -124,3 +124,5 @@ export default function LatestBlogSection({ latestBlogs = [] }) {
         </section>
     );
 }
+
+export default LatestBlogSection;

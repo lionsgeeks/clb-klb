@@ -17,7 +17,7 @@ export default function PartnersSection({ partners = [] }) {
     if (partners.length === 0) return null;
     return (
         <section className="border-b border-border bg-background py-20 lg:py-28">
-            <div className="mx-auto max-w-6xl px-4 lg:px-6">
+            <div className="container">
                 <SectionHeader
                     label={{
                         fr: 'Nos partenaires',

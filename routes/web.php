@@ -5,6 +5,7 @@ use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\TeamMemberController;
 use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\User\BlogController;
 use App\Http\Controllers\User\LocaleController;
 use App\Models\Partner;
 use App\Models\TeamMember;
@@ -74,10 +75,9 @@ Route::group(['middleware' => ['auth', 'role:admin', 'verified']], function () {
     });
 });
 
+Route::get('/blogs', [BlogController::class, 'index'])->name('user.blog');
+Route::get('/blogs/{id}', [BlogController::class, 'show'])->name('user.blog.show')->whereNumber('id');
 
-
-
-require __DIR__ . '/user/blogs.php';
 require __DIR__ . '/blog.php';
 require __DIR__ . '/contact.php';
 require __DIR__ . '/settings.php';

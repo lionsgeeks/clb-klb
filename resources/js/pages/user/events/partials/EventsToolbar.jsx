@@ -1,22 +1,36 @@
 import { useTrans } from '@/hooks/use-trans';
 
 const statusTabs = [
-    { id: 'upcoming', label: { fr: 'À venir', ar: 'القادمة', nl: 'Aankomend' } },
+    {
+        id: 'upcoming',
+        label: { fr: 'À venir', ar: 'القادمة', nl: 'Aankomend' },
+    },
     { id: 'past', label: { fr: 'Passés', ar: 'الماضية', nl: 'Afgelopen' } },
 ];
 
 const typeFilters = [
     { id: 'all', label: { fr: 'Tous', ar: 'الكل', nl: 'Alle' } },
-    { id: 'conference', label: { fr: 'Conférence', ar: 'مؤتمر', nl: 'Conferentie' } },
+    {
+        id: 'conference',
+        label: { fr: 'Conférence', ar: 'مؤتمر', nl: 'Conferentie' },
+    },
     { id: 'gala', label: { fr: 'Gala', ar: 'حفل', nl: 'Gala' } },
-    { id: 'networking', label: { fr: 'Networking', ar: 'تواصل', nl: 'Networking' } },
+    {
+        id: 'networking',
+        label: { fr: 'Networking', ar: 'تواصل', nl: 'Networking' },
+    },
 ];
 
-export default function EventsToolbar({ statusFilter, onStatusChange, categoryFilter, onCategoryChange }) {
+export function EventsToolbar({
+    statusFilter,
+    onStatusChange,
+    categoryFilter,
+    onCategoryChange,
+}) {
     const { t } = useTrans();
     return (
         <section className="bg-background">
-            <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-8 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+            <div className="container flex flex-col gap-4 py-8 lg:flex-row lg:items-center lg:justify-between">
                 <div className="flex items-center gap-6">
                     {statusTabs.map((tab) => (
                         <button
@@ -54,3 +68,5 @@ export default function EventsToolbar({ statusFilter, onStatusChange, categoryFi
         </section>
     );
 }
+
+export default EventsToolbar;

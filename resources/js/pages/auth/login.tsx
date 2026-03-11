@@ -1,13 +1,5 @@
 import { Form, Head, Link } from '@inertiajs/react';
-// import type { ComponentType } from 'react';
 import InputError from '@/components/input-error';
-// import PageHero from '@/components/PageHero';
-
-// const PageHeroTyped = PageHero as unknown as ComponentType<{
-//     subtitle?: string;
-//     title: string;
-//     backgroundImage?: string;
-// }>;
 import { register } from '@/routes';
 import { store } from '@/routes/login';
 
@@ -27,7 +19,7 @@ export default function Login({
         <>
             <Head title="Connexion" />
             <section className="border-b border-border bg-background py-16 lg:py-24">
-                <div className="mx-auto max-w-7xl px-4 lg:px-8">
+                <div className="container">
                     <div className="mx-auto max-w-md">
                         {status && (
                             <div className="mb-6 rounded-lg bg-primary/10 p-4 text-center text-sm font-medium text-foreground">

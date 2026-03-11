@@ -1,7 +1,7 @@
 import { Link } from '@inertiajs/react';
 import { TransText } from '@/components';
 
-export default function HeroSection() {
+export function HeroSection() {
     return (
         <section className="relative flex min-h-[62.5vh] items-center justify-center bg-cl-black/75 px-4 py-24">
             <div
@@ -58,3 +58,5 @@ export default function HeroSection() {
         </section>
     );
 }
+
+export default HeroSection;

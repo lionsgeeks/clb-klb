@@ -14,7 +14,7 @@ class EventController extends Controller
     {
         //
         $events = Event::all();
-        return inertia('events/index', [
+        return inertia('user/events/index', [
             "events" => $events 
         ]);
     }
@@ -62,7 +62,7 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        return inertia('events/[id]', [
+        return inertia('user/events/[id]', [
             "event" => $event
         ]);
     }

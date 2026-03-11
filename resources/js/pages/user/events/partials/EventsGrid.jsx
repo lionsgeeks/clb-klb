@@ -3,93 +3,6 @@ import { Clock1Icon } from 'lucide-react';
 import TransText from '@/components/TransText';
 import { useTrans } from '@/hooks/use-trans';
 
-// const events = [
-//     {
-//         id: 1,
-//         day: '06',
-//         month: 'MAR',
-//         category: 'Conférence',
-//         title: "F'tor-Débat : Leadership Féminin, Réalités Et Défis",
-//         time: '17:30',
-//         location: 'Cinéma Renaissance, Rabat',
-//         description:
-//             'Rencontre exceptionnelle avec Dr Younes Sakkouri, Ministre de l\'Inclusion...',
-//         price: 'À partir de 300 DH',
-//         imageUrl:
-//             'https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=800&q=80',
-//     },
-//     {
-//         id: 2,
-//         day: '15',
-//         month: 'AVR',
-//         category: 'Gala',
-//         title: 'Gala Annuel des Lauréats de Belgique',
-//         time: '19:00',
-//         location: 'Hôtel Sofitel, Casablanca',
-//         description:
-//             "Célébrez l'excellence et l'amitié maroco-belge lors de notre prestigieux gala annuel. Dîner...",
-//         price: 'Sur invitation',
-//         imageUrl:
-//             'https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=800&q=80',
-//     },
-//     {
-//         id: 3,
-//         day: '28',
-//         month: 'MAI',
-//         category: 'Networking',
-//         title: 'Afterwork B2B : Synergies Économiques',
-//         time: '18:30',
-//         location: 'The View Hotel, Rabat',
-//         description:
-//             'Une soirée de réseautage dédiée aux entrepreneurs et cadres dirigeants pour créer de...',
-//         price: 'Gratuit pour membres',
-//         imageUrl:
-//             'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80',
-//     },
-//     {
-//         id: 4,
-//         day: '06',
-//         month: 'MAR',
-//         category: 'Conférence',
-//         title: "F'tor-Débat : Leadership Féminin, Réalités Et Défis",
-//         time: '17:30',
-//         location: 'Cinéma Renaissance, Rabat',
-//         description:
-//             'Rencontre exceptionnelle avec Dr Younes Sakkouri, Ministre de l\'Inclusion...',
-//         price: 'À partir de 300 DH',
-//         imageUrl:
-//             'https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=800&q=80',
-//     },
-//     {
-//         id: 5,
-//         day: '15',
-//         month: 'AVR',
-//         category: 'Gala',
-//         title: 'Gala Annuel des Lauréats de Belgique',
-//         time: '19:00',
-//         location: 'Hôtel Sofitel, Casablanca',
-//         description:
-//             "Célébrez l'excellence et l'amitié maroco-belge lors de notre prestigieux gala annuel. Dîner...",
-//         price: 'Sur invitation',
-//         imageUrl:
-//             'https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=800&q=80',
-//     },
-//     {
-//         id: 6,
-//         day: '28',
-//         month: 'MAI',
-//         category: 'Networking',
-//         title: 'Afterwork B2B : Synergies Économiques',
-//         time: '18:30',
-//         location: 'The View Hotel, Rabat',
-//         description:
-//             'Une soirée de réseautage dédiée aux entrepreneurs et cadres dirigeants pour créer de...',
-//         price: 'Gratuit pour membres',
-//         imageUrl:
-//             'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80',
-//     },
-// ];
-
 function PinIcon() {
     return (
         <svg
@@ -158,13 +71,21 @@ function EventCard({ event }) {
 
                 <div className="mt-4 flex items-center justify-between border-t border-border pt-4">
                     <span className="text-sm font-bold text-alpha">
-                        {event.price}
+                        {event.price === 0 ? (
+                            <TransText fr="Gratuit" ar="مجاني" nl="Gratis" />
+                        ) : (
+                            `${event.price}`
+                        )}
                     </span>
                     <Link
                         href={`/events/${event.id}`}
                         className="flex items-center gap-1 text-sm font-medium text-cl-black transition hover:text-alpha"
                     >
-                        <TransText fr="En savoir plus" ar="اقرأ المزيد" nl="Meer weten" />
+                        <TransText
+                            fr="En savoir plus"
+                            ar="اقرأ المزيد"
+                            nl="Meer weten"
+                        />
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className="h-4 w-4"
@@ -182,23 +103,30 @@ function EventCard({ event }) {
     );
 }
 
-export default function EventsGrid({ events }) {
+export function EventsGrid({ events }) {
     const list = events ?? [];
 
     return (
         <section className="bg-background pt-2 pb-16 lg:pb-24">
-            <div className="mx-auto max-w-7xl px-4 lg:px-8">
+            <div className="container">
                 {list.length === 0 ? (
                     <div className="flex flex-col items-center justify-center py-16 text-center">
                         <p className="text-cl-beta">
-                            <TransText fr="Aucun événement ne correspond à vos filtres." ar="لا يوجد حدث يطابق الفلاتر." nl="Geen evenementen die overeenkomen met uw filters." />
+                            <TransText
+                                fr="Aucun événement ne correspond à vos filtres."
+                                ar="لا يوجد حدث يطابق الفلاتر."
+                                nl="Geen evenementen die overeenkomen met uw filters."
+                            />
                         </p>
                     </div>
                 ) : (
                     <>
                         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                             {list.map((event, index) => (
-                                <EventCard key={`${event.id}-${index}`} event={event} />
+                                <EventCard
+                                    key={`${event.id}-${index}`}
+                                    event={event}
+                                />
                             ))}
                         </div>
 
@@ -207,7 +135,11 @@ export default function EventsGrid({ events }) {
                                 type="button"
                                 className="inline-flex items-center justify-center rounded-full border border-alpha/30 bg-cl-white px-10 py-3 text-sm font-semibold text-alpha transition hover:bg-alpha hover:text-cl-white"
                             >
-                                <TransText fr="Charger plus d'événements" ar="تحميل المزيد من الفعاليات" nl="Meer evenementen laden" />
+                                <TransText
+                                    fr="Charger plus d'événements"
+                                    ar="تحميل المزيد من الفعاليات"
+                                    nl="Meer evenementen laden"
+                                />
                             </button>
                         </div>
                     </>
@@ -216,3 +148,5 @@ export default function EventsGrid({ events }) {
         </section>
     );
 }
+
+export default EventsGrid;

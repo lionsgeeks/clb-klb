@@ -1,10 +1,10 @@
 import { Link } from '@inertiajs/react';
 import { TransText } from '@/components';
 
-export default function ActivitiesSection() {
+export function ActivitiesSection() {
     return (
         <section className="border-b border-border bg-foreground py-20 lg:py-28">
-            <div className="mx-auto grid max-w-7xl gap-12 px-4 lg:grid-cols-2 lg:gap-16 lg:px-8">
+            <div className="container grid gap-12 lg:grid-cols-2 lg:gap-16">
                 <div className="flex flex-col justify-center">
                     <TransText
                         fr="Nos activités"
@@ -49,3 +49,5 @@ export default function ActivitiesSection() {
         </section>
     );
 }
+
+export default ActivitiesSection;

@@ -83,7 +83,7 @@ export default function TeamSection({ teamMembers = [] }) {
 
     return (
         <section className="border-b border-border bg-background py-20 lg:py-28">
-            <div className="mx-auto max-w-7xl px-4 lg:px-8">
+            <div className="container">
                 <SectionHeader
                     label={{
                         fr: 'Gouvernance',

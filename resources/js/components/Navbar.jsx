@@ -1,6 +1,6 @@
 import { Link, usePage, router } from '@inertiajs/react';
 import { useState, useRef, useEffect } from 'react';
-import TransText from '@/components/TransText';
+import { TransText } from '@/components';
 
 const navLinks = [
     {
@@ -84,7 +84,9 @@ export default function Navbar() {
     useEffect(() => {
         if (mobileOpen) document.body.style.overflow = 'hidden';
         else document.body.style.overflow = '';
-        return () => { document.body.style.overflow = ''; };
+        return () => {
+            document.body.style.overflow = '';
+        };
     }, [mobileOpen]);
 
     function setLocale(code) {
@@ -101,7 +103,7 @@ export default function Navbar() {
 
     return (
         <header className="fixed top-0 right-0 left-0 z-50 bg-cl-white">
-            <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 lg:h-20 lg:px-8">
+            <nav className="container flex h-16 items-center justify-between lg:h-20">
                 <Link href="/" className="flex items-center gap-2">
                     <img
                         src="/assets/logo.webp"
@@ -158,7 +160,7 @@ export default function Navbar() {
                                     </button>
                                     {newsDropdownOpen && (
                                         <ul
-                                            className="absolute left-0 top-full z-50 mt-1.5 min-w-48 rounded-xl bg-card py-1.5 shadow-[var(--shadow-card-hover)] ring-1 ring-border"
+                                            className="absolute top-full left-0 z-50 mt-1.5 min-w-48 rounded-xl bg-card py-1.5 shadow-[var(--shadow-card-hover)] ring-1 ring-border"
                                             role="menu"
                                         >
                                             {item.items.map(
@@ -247,7 +249,7 @@ export default function Navbar() {
                             </svg>
                         </button>
                         {open && (
-                            <ul className="absolute right-0 top-full z-50 mt-1.5 min-w-32 rounded-xl bg-card py-1.5 shadow-[var(--shadow-card-hover)] ring-1 ring-border">
+                            <ul className="absolute top-full right-0 z-50 mt-1.5 min-w-32 rounded-xl bg-card py-1.5 shadow-[var(--shadow-card-hover)] ring-1 ring-border">
                                 {LOCALES.map((l) => (
                                     <li key={l.code}>
                                         <button
@@ -282,12 +284,32 @@ export default function Navbar() {
                         aria-expanded={mobileOpen}
                     >
                         {mobileOpen ? (
-                            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            <svg
+                                className="h-5 w-5"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M6 18L18 6M6 6l12 12"
+                                />
                             </svg>
                         ) : (
-                            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                            <svg
+                                className="h-5 w-5"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M4 6h16M4 12h16M4 18h16"
+                                />
                             </svg>
                         )}
                     </button>
@@ -302,41 +324,95 @@ export default function Navbar() {
                                 const { key, hasDropdown, fr, ar, nl } = item;
                                 const href = item.href;
                                 if (hasDropdown && item.items) {
-                                    const isActive = item.items.some((i) => window.location.pathname.startsWith(i.href));
+                                    const isActive = item.items.some((i) =>
+                                        window.location.pathname.startsWith(
+                                            i.href,
+                                        ),
+                                    );
                                     return (
-                                        <li key={key} className="border-b border-border">
-                                            <span className={mobileLinkClass(isActive)}>
-                                                <TransText fr={fr} ar={ar} nl={nl} as="span" />
+                                        <li
+                                            key={key}
+                                            className="border-b border-border"
+                                        >
+                                            <span
+                                                className={mobileLinkClass(
+                                                    isActive,
+                                                )}
+                                            >
+                                                <TransText
+                                                    fr={fr}
+                                                    ar={ar}
+                                                    nl={nl}
+                                                    as="span"
+                                                />
                                             </span>
-                                            <ul className="pb-3 pl-4 pt-1">
-                                                {item.items.map(({ key: itemKey, href: itemHref, fr: itemFr, ar: itemAr, nl: itemNl }) => (
-                                                    <li key={itemKey}>
-                                                        <Link
-                                                            href={itemHref}
-                                                            className="block py-2 text-sm text-muted-foreground hover:text-primary"
-                                                            onClick={() => setMobileOpen(false)}
-                                                        >
-                                                            <TransText fr={itemFr} ar={itemAr} nl={itemNl} as="span" />
-                                                        </Link>
-                                                    </li>
-                                                ))}
+                                            <ul className="pt-1 pb-3 pl-4">
+                                                {item.items.map(
+                                                    ({
+                                                        key: itemKey,
+                                                        href: itemHref,
+                                                        fr: itemFr,
+                                                        ar: itemAr,
+                                                        nl: itemNl,
+                                                    }) => (
+                                                        <li key={itemKey}>
+                                                            <Link
+                                                                href={itemHref}
+                                                                className="block py-2 text-sm text-muted-foreground hover:text-primary"
+                                                                onClick={() =>
+                                                                    setMobileOpen(
+                                                                        false,
+                                                                    )
+                                                                }
+                                                            >
+                                                                <TransText
+                                                                    fr={itemFr}
+                                                                    ar={itemAr}
+                                                                    nl={itemNl}
+                                                                    as="span"
+                                                                />
+                                                            </Link>
+                                                        </li>
+                                                    ),
+                                                )}
                                             </ul>
                                         </li>
                                     );
                                 }
                                 const path = href === '/' ? '/' : href;
-                                const isActive = path !== '/' ? window.location.pathname.startsWith(path) : window.location.pathname === '/';
+                                const isActive =
+                                    path !== '/'
+                                        ? window.location.pathname.startsWith(
+                                              path,
+                                          )
+                                        : window.location.pathname === '/';
                                 return (
-                                    <li key={key} className="border-b border-border">
-                                        <Link href={href} className={mobileLinkClass(isActive)} onClick={() => setMobileOpen(false)}>
-                                            <TransText fr={fr} ar={ar} nl={nl} as="span" />
+                                    <li
+                                        key={key}
+                                        className="border-b border-border"
+                                    >
+                                        <Link
+                                            href={href}
+                                            className={mobileLinkClass(
+                                                isActive,
+                                            )}
+                                            onClick={() => setMobileOpen(false)}
+                                        >
+                                            <TransText
+                                                fr={fr}
+                                                ar={ar}
+                                                nl={nl}
+                                                as="span"
+                                            />
                                         </Link>
                                     </li>
                                 );
                             })}
                         </ul>
                         <div className="mt-6 flex flex-col gap-3">
-                            <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Langue</p>
+                            <p className="text-xs font-medium tracking-wider text-muted-foreground uppercase">
+                                Langue
+                            </p>
                             <div className="flex gap-2">
                                 {LOCALES.map((l) => (
                                     <button
@@ -354,7 +430,12 @@ export default function Navbar() {
                                 className="mt-2 inline-block rounded-lg bg-primary px-4 py-3 text-center text-sm font-medium text-primary-foreground"
                                 onClick={() => setMobileOpen(false)}
                             >
-                                <TransText fr="Devenir membre" ar="كن عضواً" nl="Lid worden" as="span" />
+                                <TransText
+                                    fr="Devenir membre"
+                                    ar="كن عضواً"
+                                    nl="Lid worden"
+                                    as="span"
+                                />
                             </Link>
                         </div>
                     </div>

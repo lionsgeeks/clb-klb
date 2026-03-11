@@ -12,7 +12,7 @@ export default function BlogCard({ blog }) {
 
     return (
         <article className="flex flex-col overflow-hidden rounded-lg border border-border bg-card shadow-sm transition hover:shadow-md">
-            <div className="relative aspect-[16/10] w-full overflow-hidden bg-muted">
+            <div className="relative aspect-video w-full overflow-hidden bg-muted">
                 {image_url && (
                     <img
                         src={image_url}

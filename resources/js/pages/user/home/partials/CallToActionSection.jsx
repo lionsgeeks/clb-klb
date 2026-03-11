@@ -1,7 +1,7 @@
 import { Link } from '@inertiajs/react';
 import { TransText } from '@/components';
 
-export default function CallToActionSection() {
+export function CallToActionSection() {
     return (
         <section className="relative overflow-hidden border-b border-border bg-cl-blue-light/50 py-20 lg:py-28">
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_100%,rgba(232,17,35,0.12),transparent)]" />
@@ -46,3 +46,5 @@ export default function CallToActionSection() {
         </section>
     );
 }
+
+export default CallToActionSection;

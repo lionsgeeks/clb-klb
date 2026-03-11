@@ -1,9 +1,9 @@
 import { TransText } from '@/components';
 
-export default function WhoWeAreSection() {
+export function WhoWeAreSection() {
     return (
         <section className="border-b border-border bg-background py-20 lg:py-28">
-            <div className="mx-auto grid max-w-7xl gap-12 px-4 lg:grid-cols-2 lg:gap-16 lg:px-8">
+            <div className="container grid gap-12 lg:grid-cols-2 lg:gap-16">
                 <div className="relative aspect-video overflow-hidden rounded-2xl bg-muted shadow-(--shadow-card)">
                     <img
                         src="/assets/about-team.png"
@@ -38,3 +38,5 @@ export default function WhoWeAreSection() {
         </section>
     );
 }
+
+export default WhoWeAreSection;

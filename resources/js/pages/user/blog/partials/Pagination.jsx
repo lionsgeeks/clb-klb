@@ -12,7 +12,7 @@ export default function Pagination({ pagination }) {
         return null;
     }
 
-    const { current_page, last_page, links, next_url } = pagination;
+    const { current_page, last_page, links, prev_url, next_url } = pagination;
 
     const pageLinks =
         links && links.length > 0
@@ -25,9 +25,21 @@ export default function Pagination({ pagination }) {
 
     return (
         <nav
-            className="flex flex-wrap items-center justify-center gap-2 px-4 py-10"
+            className="flex flex-wrap items-center justify-center gap-4 px-4 py-10"
             aria-label="Pagination"
         >
+            {prev_url ? (
+                <Link
+                    href={prev_url}
+                    className="text-sm font-medium text-foreground hover:text-alpha"
+                >
+                    <TransText fr="< PRÉCÉDENT" ar="< السابق" nl="< VORIGE" />
+                </Link>
+            ) : (
+                <span className="text-sm font-medium text-muted-foreground/40 select-none">
+                    <TransText fr="< PRÉCÉDENT" ar="< السابق" nl="< VORIGE" />
+                </span>
+            )}
             <div className="flex items-center gap-1">
                 {pageLinks.map((link, idx) => {
                     const isNumber = /^\d+$/.test(link.label.trim());
@@ -64,13 +76,17 @@ export default function Pagination({ pagination }) {
                     );
                 })}
             </div>
-            {next_url && (
+            {next_url ? (
                 <Link
                     href={next_url}
-                    className="ml-2 text-sm font-medium text-foreground hover:text-alpha"
+                    className="text-sm font-medium text-foreground hover:text-alpha"
                 >
                     <TransText fr="SUIVANT >" ar="التالي >" nl="VOLGENDE >" />
                 </Link>
+            ) : (
+                <span className="text-sm font-medium text-muted-foreground/40 select-none">
+                    <TransText fr="SUIVANT >" ar="التالي >" nl="VOLGENDE >" />
+                </span>
             )}
         </nav>
     );

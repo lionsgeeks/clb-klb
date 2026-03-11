@@ -66,13 +66,13 @@ const objectives = [
     },
 ];
 
-export default function StrategicObjectivesSection() {
+export function StrategicObjectivesSection() {
     return (
         <section
             id="objectifs"
             className="scroll-mt-20 border-b border-border bg-background py-16 lg:py-24"
         >
-            <div className="mx-auto max-w-7xl px-4 lg:px-8">
+            <div className="container">
                 <SectionHeader
                     label={{
                         fr: 'Nos Missions',
@@ -94,3 +94,5 @@ export default function StrategicObjectivesSection() {
         </section>
     );
 }
+
+export default StrategicObjectivesSection;

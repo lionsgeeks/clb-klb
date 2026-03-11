@@ -1,14 +1,16 @@
 import { Head } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
-import HeroSection from './partials/HeroSection';
-import EventsSection from './partials/EventsSection';
-import StrategicObjectivesSection from './partials/StrategicObjectivesSection';
-import NetworkVideoSection from './partials/NetworkVideoSection';
+import {
+    HeroSection,
+    EventsSection,
+    StrategicObjectivesSection,
+    NetworkVideoSection,
+    CallToActionSection,
+    ContactStripSection,
+    LatestBlogSection,
+} from './partials';
 import TeamSection from '@/components/TeamSection';
 import PartnersSection from '@/components/PartnersSection';
-import CallToActionSection from './partials/CallToActionSection';
-import ContactStripSection from './partials/ContactStripSection';
-import LatestBlogSection from './partials/LatestBlogSection';
 
 function HomeIndex({
     latestBlogs,

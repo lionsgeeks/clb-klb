@@ -2,14 +2,14 @@ import { Link } from '@inertiajs/react';
 import { TransText, SectionHeader } from '@/components';
 import { FeaturedEventCard, SmallEventCard } from './EventCard';
 
-export default function EventsSection({ recentEvents = [] }) {
+export function EventsSection({ recentEvents = [] }) {
     if (!recentEvents.length) return null;
 
     const [featuredEvent, ...rest] = recentEvents;
     const smallEvents = rest.slice(0, 3);
     return (
         <section className="border-b border-border bg-cl-blue-light/30 py-16 lg:py-24">
-            <div className="mx-auto max-w-7xl px-4 lg:px-8">
+            <div className="container">
                 <SectionHeader
                     label={{
                         fr: 'Nos Événements',
@@ -62,3 +62,5 @@ export default function EventsSection({ recentEvents = [] }) {
         </section>
     );
 }
+
+export default EventsSection;
