@@ -67,7 +67,7 @@ class HomeController extends Controller
                 return [
                     'id' => $event->id,
                     'title' => $event->title,
-                    'subtitle' => $event->categorie,
+                    'subtitle' => $event->category,
                     'description' => $event->description,
                     'date' => $dateFormatted,
                     'timeRange' => $timeRange,
