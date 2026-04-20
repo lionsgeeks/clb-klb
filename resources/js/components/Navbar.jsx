@@ -143,7 +143,7 @@ export default function Navbar() {
                                             fr={fr}
                                             ar={ar}
                                             nl={nl}
-                                            as="span"
+                                            className="uppercase"
                                         />
                                         <svg
                                             className="h-4 w-4 text-cl-black"

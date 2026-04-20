@@ -1,5 +1,5 @@
 export const CONTACT_INFO = {
-    phone: '+212 6 66 17 47 12',
+    phone: '+212666174712',
     email: 'contact@clb-klb.com',
     address: '4, Rue Jaâfar Assadik - Agdal, Rabat - Maroc',
     map_link: 'https://maps.app.goo.gl/Htw7caHGZEJrrev79',
