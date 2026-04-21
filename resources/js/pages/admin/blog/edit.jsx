@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import TipTapEditor from '@/components/TipTapEditor';
+import { CONTENT_CATEGORY_PRESETS } from '@/lib/consts';
+import { findCategoryPresetByValue } from '@/lib/utils';
 
 const LOCALES = [
     { code: 'fr', label: 'French' },
@@ -22,6 +24,7 @@ export default function AdminBlogEdit({ blog }) {
     ];
 
     const [activeLocale, setActiveLocale] = useState('fr');
+    const [openCategoryLocale, setOpenCategoryLocale] = useState(null);
 
     const { data, setData, put, processing, errors } = useForm({
         image: null,
@@ -38,6 +41,40 @@ export default function AdminBlogEdit({ blog }) {
 
     const handleBodyChange = (locale, value) => {
         setData('body', { ...data.body, [locale]: value });
+    };
+
+    const handleCategoryInputChange = (locale, value) => {
+        const matchedPreset = findCategoryPresetByValue(locale, value);
+
+        if (matchedPreset) {
+            setData('category', {
+                fr: matchedPreset.fr,
+                ar: matchedPreset.ar,
+                nl: matchedPreset.nl,
+            });
+            return;
+        }
+
+        setData('category', { ...data.category, [locale]: value });
+    };
+
+    const getCategorySuggestions = (locale) => {
+        const search = (data.category[locale] ?? '').trim().toLowerCase();
+
+        return CONTENT_CATEGORY_PRESETS.filter((preset) => {
+            const localizedLabel = (preset[locale] ?? '').toLowerCase();
+
+            return search === '' || localizedLabel.includes(search);
+        });
+    };
+
+    const applyCategoryPreset = (preset) => {
+        setData('category', {
+            fr: preset.fr,
+            ar: preset.ar,
+            nl: preset.nl,
+        });
+        setOpenCategoryLocale(null);
     };
 
     const canSubmit = LOCALES.every(
@@ -113,7 +150,7 @@ export default function AdminBlogEdit({ blog }) {
                         </div>
                     </div>
 
-                    <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+                    <div className="rounded-2xl border border-border bg-card shadow-sm">
                         <div className="border-b bg-alpha/5 px-6 py-3">
                             <p className="text-xs font-semibold tracking-wider text-alpha uppercase">
                                 Category
@@ -125,17 +162,83 @@ export default function AdminBlogEdit({ blog }) {
                                     <Label htmlFor={`category_${lang.code}`}>
                                         {lang.label}
                                     </Label>
-                                    <Input
-                                        id={`category_${lang.code}`}
-                                        className="rounded-lg"
-                                        value={data.category[lang.code]}
-                                        onChange={(e) =>
-                                            setData('category', {
-                                                ...data.category,
-                                                [lang.code]: e.target.value,
-                                            })
-                                        }
-                                    />
+                                    <div className="relative">
+                                        <Input
+                                            id={`category_${lang.code}`}
+                                            className="rounded-lg"
+                                            autoComplete="off"
+                                            value={data.category[lang.code]}
+                                            onFocus={() =>
+                                                setOpenCategoryLocale(lang.code)
+                                            }
+                                            onBlur={() => {
+                                                setTimeout(() => {
+                                                    setOpenCategoryLocale(
+                                                        (current) =>
+                                                            current ===
+                                                            lang.code
+                                                                ? null
+                                                                : current,
+                                                    );
+                                                }, 120);
+                                            }}
+                                            onChange={(e) => {
+                                                handleCategoryInputChange(
+                                                    lang.code,
+                                                    e.target.value,
+                                                );
+                                                setOpenCategoryLocale(
+                                                    lang.code,
+                                                );
+                                            }}
+                                        />
+                                        {openCategoryLocale === lang.code && (
+                                            <div className="absolute z-30 mt-1 w-full overflow-hidden rounded-lg border border-border bg-card shadow-xl">
+                                                <div className="max-h-56 overflow-auto py-1">
+                                                    {getCategorySuggestions(
+                                                        lang.code,
+                                                    ).length > 0 ? (
+                                                        getCategorySuggestions(
+                                                            lang.code,
+                                                        ).map(
+                                                            (
+                                                                categoryPreset,
+                                                            ) => (
+                                                                <button
+                                                                    key={`blog-edit-${lang.code}-${categoryPreset.fr}`}
+                                                                    type="button"
+                                                                    className="flex w-full flex-col items-start px-3 py-2 text-left hover:bg-alpha/10"
+                                                                    onMouseDown={(
+                                                                        e,
+                                                                    ) => {
+                                                                        e.preventDefault();
+                                                                    }}
+                                                                    onClick={() =>
+                                                                        applyCategoryPreset(
+                                                                            categoryPreset,
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    <span className="text-sm font-medium text-foreground">
+                                                                        {
+                                                                            categoryPreset[
+                                                                                lang
+                                                                                    .code
+                                                                            ]
+                                                                        }
+                                                                    </span>
+                                                                </button>
+                                                            ),
+                                                        )
+                                                    ) : (
+                                                        <p className="px-3 py-2 text-xs text-muted-foreground">
+                                                            No matching category
+                                                        </p>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
                                     {errors[`category.${lang.code}`] && (
                                         <p className="text-xs text-destructive">
                                             {errors[`category.${lang.code}`]}
