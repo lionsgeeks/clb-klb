@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\Participant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class ParticipantController extends Controller
 {
@@ -13,6 +14,14 @@ class ParticipantController extends Controller
      */
     public function store(Request $request, Event $event)
     {
+        $eventDate = Carbon::parse($event->date)->startOfDay();
+
+        if ($eventDate->isPast()) {
+            return back()->withErrors([
+                'event' => 'Registration is closed for past events.',
+            ]);
+        }
+
         $validated = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',

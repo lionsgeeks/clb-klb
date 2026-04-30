@@ -96,10 +96,10 @@ export default function Footer() {
 
     return (
         <>
-            <section class="relative flex min-h-100 w-full items-center bg-[url('https://media.istockphoto.com/id/494195896/photo/brugge-architecture.jpg?s=1024x1024&w=is&k=20&c=_219KOIkBJZ5AM8u0P_BfyffvNNJ7p1NVuACDtmL0D0=')] bg-cover bg-center before:absolute before:inset-0 before:z-0 before:bg-black/90 before:content-['']">
-                <div class="relative container grid items-center justify-between gap-10 lg:grid-cols-2">
-                    <div class="space-y-4">
-                        <h2 class="text-5xl leading-tight font-extrabold tracking-tight text-cl-white capitalize md:text-5xl">
+            <section className="relative flex min-h-100 w-full items-center bg-[url('https://media.istockphoto.com/id/494195896/photo/brugge-architecture.jpg?s=1024x1024&w=is&k=20&c=_219KOIkBJZ5AM8u0P_BfyffvNNJ7p1NVuACDtmL0D0=')] bg-cover bg-center before:absolute before:inset-0 before:z-0 before:bg-black/90 before:content-['']">
+                <div className="relative container grid items-center justify-between gap-10 lg:grid-cols-2">
+                    <div className="space-y-4">
+                        <h2 className="text-5xl leading-tight font-extrabold tracking-tight text-cl-white capitalize md:text-5xl">
                             <TransText
                                 ar="انضم إلى نشرتنا الإخبارية وابقَ على اطلاع.."
                                 fr="Rejoignez notre newsletter et restez informé."
@@ -108,22 +108,21 @@ export default function Footer() {
                             />
                         </h2>
 
-                        <p class="text-lg text-yellow-500">
+                        <p className="text-lg text-yellow-500">
                             <TransText
                                 ar="احصل على أحدث الأخبار والتحديثات مباشرة في بريدك الإلكتروني."
                                 fr="Recevez les dernières actualités et mises à jour directement dans votre boîte de réception."
                                 nl="Ontvang het laatste nieuws en updates rechtstreeks in je inbox."
-                                as="p"
                             />
                         </p>
                     </div>
 
-                    <div class="flex w-full flex-col gap-4 sm:flex-row">
+                    <div className="flex w-full flex-col gap-4 sm:flex-row">
                         <input
                             onChange={(e) => setSubscriber(e.target.value)}
                             type="email"
                             placeholder="Enter your email..."
-                            class="w-full rounded-full border border-gray-300 bg-white px-4 py-3 text-gray-800 shadow-sm focus:border-[#a3b899] focus:ring-2 focus:ring-[#a3b899] focus:outline-none"
+                            className="w-full rounded-full border border-gray-300 bg-white px-4 py-3 text-gray-800 shadow-sm focus:border-[#a3b899] focus:ring-2 focus:ring-[#a3b899] focus:outline-none"
                         />
 
                         <button

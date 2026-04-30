@@ -28,17 +28,18 @@ class HomeController extends Controller
 
         $latestBlogs = Blog::query()
             ->where('is_published', true)
-            ->orderByDesc('created_at')
+            ->orderByDesc('published_at')
             ->take(3)
             ->get()
             ->map(function (Blog $blog) use ($locale) {
                 $imageUrl = $blog->image ? asset('storage/' . $blog->image) : null;
+                $publishedAt = $blog->published_at ? \Carbon\Carbon::parse($blog->published_at)->translatedFormat('j F Y') : null;
                 return [
                     'id' => $blog->id,
                     'title' => $blog->getTranslation('title', $locale),
                     'description' => $blog->getTranslation('description', $locale),
                     'image_url' => $imageUrl,
-                    'published_at' => $blog->created_at?->translatedFormat('j F Y'),
+                    'published_at' => $publishedAt,
                     'url' => '/blogs/' . $blog->id,
                 ];
             })
@@ -51,18 +52,10 @@ class HomeController extends Controller
             ->map(function (Event $event) {
                 $image = $event->image;
                 $imageUrl = $image
-                    ? (str_starts_with($image, 'http') ? $image : asset('storage/' . $image))
+                    ? (str_starts_with($image, 'http') ? $image : asset($image))
                     : null;
 
-                $dateObj = $event->date ? \Carbon\Carbon::parse($event->date) : null;
-                $dateFormatted = $dateObj ? $dateObj->format('d M') : '';
-                $timeStr = $event->time ? \Carbon\Carbon::parse($event->time)->format('H:i') : '';
-                $timeRangeStr = $dateObj ? $dateObj->format('l, d F Y') . ($timeStr ? ' ' . $timeStr : '') : '';
-                $timeRange = [
-                    'fr' => $timeRangeStr,
-                    'ar' => $timeRangeStr,
-                    'nl' => $timeRangeStr,
-                ];
+                $dateFormatted = $event->date ? \Carbon\Carbon::parse($event->date)->translatedFormat('d M Y') : null;
 
                 return [
                     'id' => $event->id,
@@ -70,7 +63,6 @@ class HomeController extends Controller
                     'subtitle' => $event->category,
                     'description' => $event->description,
                     'date' => $dateFormatted,
-                    'timeRange' => $timeRange,
                     'location' => $event->location ?? '',
                     'imageUrl' => $imageUrl,
                     'href' => route('events.show', $event),

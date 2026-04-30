@@ -20,7 +20,7 @@ function PinIcon() {
 }
 
 function EventCard({ event }) {
-    const { t } = useTrans();
+    const { t, locale } = useTrans();
     const imageSrc =
         !event?.image
             ? ''
@@ -42,9 +42,9 @@ function EventCard({ event }) {
                     />
                 )}
                 {/* Date badge */}
-                <div className="absolute top-4 left-4 flex h-14 w-14 flex-col items-center justify-center rounded-full bg-alpha text-cl-white shadow-md">
+                    <div className="absolute top-4 left-4 flex h-14 w-14 flex-col items-center justify-center rounded-full bg-alpha text-cl-white shadow-md">
                     <span className="text-lg leading-none font-bold">
-                        {new Date(event.date).toLocaleString('default', {
+                        {new Date(event.date).toLocaleString(locale || undefined, {
                             month: 'short',
                         })}
                     </span>
@@ -138,19 +138,6 @@ export function EventsGrid({ events }) {
                                     event={event}
                                 />
                             ))}
-                        </div>
-
-                        <div className="mt-14 flex justify-center">
-                            <button
-                                type="button"
-                                className="inline-flex items-center justify-center rounded-full border border-alpha/30 bg-cl-white px-10 py-3 text-sm font-semibold text-alpha transition hover:bg-alpha hover:text-cl-white"
-                            >
-                                <TransText
-                                    fr="Charger plus d'événements"
-                                    ar="تحميل المزيد من الفعاليات"
-                                    nl="Meer evenementen laden"
-                                />
-                            </button>
                         </div>
                     </>
                 )}
