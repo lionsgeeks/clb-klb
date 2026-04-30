@@ -1,6 +1,21 @@
 import TransText from '@/components/TransText';
+import { useClipboard } from '@/hooks/use-clipboard';
+import { useEffect, useState } from 'react';
 
 export function EventDetailContent({ event }) {
+    const [copiedText, copy] = useClipboard();
+    const [currentUrl, setCurrentUrl] = useState('');
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            setCurrentUrl(window.location.href);
+        }
+    }, []);
+
+    const handleCopyLink = async () => {
+        if (!currentUrl) return;
+        await copy(currentUrl);
+    };
     return (
         <section className="bg-background py-12 lg:py-20">
             <div className="container grid gap-10 lg:grid-cols-2">
@@ -116,25 +131,22 @@ export function EventDetailContent({ event }) {
                         <div className="mt-3 flex flex-wrap gap-2">
                             <button
                                 type="button"
+                                onClick={handleCopyLink}
                                 className="rounded-full border border-border bg-cl-white px-4 py-2 text-xs font-semibold text-cl-black transition hover:border-alpha hover:text-alpha"
                             >
-                                LinkedIn
-                            </button>
-                            <button
-                                type="button"
-                                className="rounded-full border border-border bg-cl-white px-4 py-2 text-xs font-semibold text-cl-black transition hover:border-alpha hover:text-alpha"
-                            >
-                                Facebook
-                            </button>
-                            <button
-                                type="button"
-                                className="rounded-full border border-border bg-cl-white px-4 py-2 text-xs font-semibold text-cl-black transition hover:border-alpha hover:text-alpha"
-                            >
-                                <TransText
-                                    fr="Copier le lien"
-                                    ar="نسخ الرابط"
-                                    nl="Link kopiëren"
-                                />
+                                {copiedText === currentUrl ? (
+                                    <TransText
+                                        fr="Copié"
+                                        ar="تم النسخ"
+                                        nl="Gekopieerd"
+                                    />
+                                ) : (
+                                    <TransText
+                                        fr="Copier le lien"
+                                        ar="نسخ الرابط"
+                                        nl="Link kopiëren"
+                                    />
+                                )}
                             </button>
                         </div>
                     </div>

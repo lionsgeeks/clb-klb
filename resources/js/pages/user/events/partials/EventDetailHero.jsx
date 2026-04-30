@@ -17,7 +17,7 @@ import { useTrans } from '@/hooks/use-trans';
 
 export function EventDetailHero({ event }) {
     const { flash } = usePage().props;
-    const { t } = useTrans();
+    const { t, locale } = useTrans();
     const [open, setOpen] = useState(false);
     const { data, setData, post, processing, errors, reset } = useForm({
         first_name: '',
@@ -35,6 +35,14 @@ export function EventDetailHero({ event }) {
             },
         });
     };
+
+    const eventDate = new Date(event.date);
+    eventDate.setHours(0, 0, 0, 0);
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const isPastEvent = eventDate < today;
 
     const imageUrl =
         !event?.image
@@ -68,11 +76,21 @@ export function EventDetailHero({ event }) {
                         {...event.title}
                         as="h1"
                     />
-                    <TransText
-                        className="mt-4 text-sm leading-relaxed text-cl-white/80 lg:text-base"
-                        {...event.description}
-                        as="p"
-                    />
+                    {/* Truncate long descriptions and append an ellipsis */}
+                    {(() => {
+                        const fullDesc = t(event.description);
+                        const maxLen = 300;
+                        const shortDesc =
+                            fullDesc && fullDesc.length > maxLen
+                                ? fullDesc.slice(0, maxLen).trimEnd() + '…'
+                                : fullDesc;
+
+                        return (
+                            <p className="mt-4 text-sm leading-relaxed text-cl-white/80 lg:text-base">
+                                {shortDesc}
+                            </p>
+                        );
+                    })()}
                 </div>
 
                 <div className="mt-8 flex-1 rounded-2xl bg-cl-white p-6 shadow-xl lg:mt-0">
@@ -87,7 +105,7 @@ export function EventDetailHero({ event }) {
                             </p>
                             <span className="text-sm leading-none font-bold">
                                 {new Date(event.date).toLocaleString(
-                                    'default',
+                                    locale || undefined,
                                     {
                                         month: 'short',
                                         day: '2-digit',
@@ -118,22 +136,32 @@ export function EventDetailHero({ event }) {
                                 )}
                             </p>
                         </div>
-                        <button
-                            type="button"
-                            onClick={() => setOpen(true)}
-                            className="w-full rounded-full bg-alpha px-5 py-3 text-sm font-semibold tracking-wide text-cl-white uppercase transition hover:bg-alpha/90"
-                        >
-                            <TransText
-                                fr="S'inscrire"
-                                ar="التسجيل"
-                                nl="Inschrijven"
-                            />
-                        </button>
+                        {isPastEvent ? (
+                            <div className="rounded-2xl border border-border bg-muted px-4 py-3 text-center text-sm font-medium text-muted-foreground">
+                                <TransText
+                                    fr="Les inscriptions sont closes pour cet événement passé."
+                                    ar="تم إغلاق التسجيل لهذا الحدث المنقضي."
+                                    nl="Inschrijvingen zijn gesloten voor dit verlopen evenement."
+                                />
+                            </div>
+                        ) : (
+                            <button
+                                type="button"
+                                onClick={() => setOpen(true)}
+                                className="w-full rounded-full bg-alpha px-5 py-3 text-sm font-semibold tracking-wide text-cl-white uppercase transition hover:bg-alpha/90"
+                            >
+                                <TransText
+                                    fr="S'inscrire"
+                                    ar="التسجيل"
+                                    nl="Inschrijven"
+                                />
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>
 
-            <Dialog open={open} onOpenChange={setOpen}>
+            <Dialog open={open && !isPastEvent} onOpenChange={setOpen}>
                 <DialogContent>
                     <DialogHeader>
                         <DialogTitle>
